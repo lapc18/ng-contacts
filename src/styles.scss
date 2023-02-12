@@ -1,1 +1,118 @@
-/* You can add global styles to this file, and also import other style files */
+
+:root {
+  font-family: "Quicksand", sans-serif !important;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  border: 0;
+  outline: 0;
+  box-sizing: border-box;
+  list-style: none;
+  text-decoration: none;
+  position: relative;
+}
+
+html {
+  scroll-behavior: smooth;
+  overflow-y: scroll;
+  overflow-x: hidden;
+  max-width: 100vw;
+}
+
+::-webkit-scrollbar {
+  display: none;
+}
+
+body {
+  font-family: "Quicksand", sans-serif !important;
+  background: #ffffff;
+  line-height: 1.7;
+  max-width: 100vw;
+  overflow-x: hidden;
+}
+
+.ml-auto {
+  margin-left: auto !important;
+}
+
+.bg-primary-red {
+  background-color: #F50057;
+}
+
+.btn-outline-primary {
+  color: #F50057 !important;
+  border-color: #F50057 !important;
+}
+
+.btn-outline-primary:hover {
+  color: #fff !important;
+  background-color: #F50057 !important;
+  border-color: #F50057 !important;
+}
+
+.svg-img {
+  overflow-x: hidden;
+  padding: 0%;
+}
+
+.fa {
+  font-size: 100px;
+}
+
+.display-title::after {
+  content: '';
+  background: #fff;
+  height: 10px;
+  width: 50px;
+  margin-left: auto;
+  margin-right: auto;
+  margin-bottom: 40px;
+  display: block;
+  transform: translateY(8px);
+}
+
+.display-title::before {
+  content: '';
+  background: #fff;
+  height: 5px;
+  width: 200px;
+  margin-left: auto;
+  margin-right: auto;
+  display: block;
+  transform: translateY(63px);
+}
+
+.display-title-red::after {
+  content: '';
+  background: #F50057;
+  height: 10px;
+  width: 50px;
+  margin-left: auto;
+  margin-right: auto;
+  margin-bottom: 40px;
+  display: block;
+  transform: translateY(8px);
+}
+
+.display-title-red::before {
+  content: '';
+  background: #F50057;
+  height: 5px;
+  width: 200px;
+  margin-left: auto;
+  margin-right: auto;
+  display: block;
+  transform: translateY(63px);
+}
+
+.text-red {
+  color: #F50057;
+}
+
+.container-full {
+  padding: 0 !important;
+  margin: 0 !important;
+  min-height: 90vh;
+}
