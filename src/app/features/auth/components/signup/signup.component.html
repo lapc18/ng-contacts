@@ -1,1 +1,32 @@
-<p>signup works!</p>
+<app-navbar></app-navbar>
+<div id="sigup" class="container">
+  <div class="row animate__animated animate__fadeInDown pt-7">
+    <div class="col-md-6">
+      <img class="img-svg" src="../../../../assets/svg/signup.svg" alt="">
+    </div>
+    <div class="col-md-6">
+      <h1 class="display-title-red text-center text-black">Sign-Up</h1>
+      <div class="row justify-content-center">
+        <div class="text-center">
+          <p *ngIf="existEmail" class="text-red animated shake">This email may exists, please <a
+              routerLink="/auth/signin">sign-in here</a></p>
+          <p *ngIf="exitsErrorOnResponse" class="text-red animated shake">An error occured, please <a
+              href="http://lapc18.github.io" class="text-black">contact me!</a></p>
+        </div>
+        <form [formGroup]="signupForm" class="form-group col-md-10">
+          <div class="form-group">
+            <input formControlName="email" class="form-control" placeholder="your@email.com" required type="email"
+              name="email" id="email">
+          </div>
+          <div class="form-group">
+            <input formControlName="pwd" class="form-control" type="password" required placeholder="*******" name="pwd"
+              id="pwd">
+          </div>
+          <button (click)="signUp()" [disabled]="!signupForm.valid"
+            class="btn btn-outline-primary float-right col-md-12 mt-2">Sign-up</button>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+<app-footer></app-footer>
