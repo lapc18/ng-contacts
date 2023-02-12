@@ -1,6 +1,7 @@
 export enum AppRoutes {
-    DEFAULT = "/",
+    DEFAULT = "",
     HOME = "home",
     AUTH = "auth",
     PROFILE = "profile",
+    LANDING = "landing",
 }

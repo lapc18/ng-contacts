@@ -7,6 +7,7 @@ import { HomeModule } from './features/home/home.module';
 import { AuthModule } from './features/auth/auth.module';
 import { ProfileModule } from './features/profile/profile.module';
 import { CoreModule } from './core/core.module';
+import { SharedModule } from './shared/shared.module';
 
 @NgModule({
   declarations: [
@@ -16,6 +17,7 @@ import { CoreModule } from './core/core.module';
     BrowserModule,
     AppRoutingModule,
     CoreModule,
+    SharedModule,
     HomeModule,
     AuthModule,
     ProfileModule
