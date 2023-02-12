@@ -4,4 +4,6 @@ export enum AppRoutes {
     AUTH = "auth",
     PROFILE = "profile",
     LANDING = "landing",
+    LOGIN = "signin",
+    SIGNUP = "sigup",
 }
