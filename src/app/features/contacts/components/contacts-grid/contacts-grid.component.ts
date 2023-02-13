@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { SelectItem } from 'primeng/api';
 import { Contact } from 'src/app/core/models/contact.model';
+import { ContactsService } from 'src/app/core/services/contacts.service';
 
 @Component({
   selector: 'app-contacts-grid',
@@ -11,17 +12,17 @@ export class ContactsGridComponent implements OnInit {
 
 
   public contacts: Array<Contact> = [
-    { firstName: "ztest", lastName: "contact", nickName: "test nickname", address: "some street", company: "devlegnd", website: "lapc.com"},
-    { firstName: "test", lastName: "contact"},
-    { firstName: "test", lastName: "contact"},
-    { firstName: "atest x", lastName: "contact"},
-    { firstName: "test", lastName: "contact"},
-    { firstName: "test", lastName: "contact"},
-    { firstName: "test z", lastName: "contact"},
-    { firstName: "test", lastName: "contact"},
-    { firstName: "test", lastName: "contact"},
-    { firstName: "test", lastName: "contact"},
-    { firstName: "ztest a", lastName: "contact"},
+    { id: 0, firstName: "ztest", lastName: "contact", nickName: "test nickname", address: "some street", company: "devlegnd", website: "lapc.com"},
+    { id: 1, firstName: "test", lastName: "contact"},
+    { id: 3, firstName: "test", lastName: "contact"},
+    { id: 44, firstName: "atest x", lastName: "contact"},
+    { id: 24, firstName: "test", lastName: "contact"},
+    { id: 425, firstName: "test", lastName: "contact"},
+    { id: 764, firstName: "test z", lastName: "contact"},
+    { id: 46764, firstName: "test", lastName: "contact"},
+    { id:764764, firstName: "test", lastName: "contact"},
+    { id: 35635, firstName: "test", lastName: "contact"},
+    { id: 2, firstName: "ztest a", lastName: "contact"},
   ];
 
 
@@ -38,10 +39,21 @@ export class ContactsGridComponent implements OnInit {
 
   searchInputValue: string = "";
 
-  constructor(){}
+  constructor(
+    private contactsService: ContactsService
+  ){}
 
   ngOnInit(): void {
 
+  }
+
+
+  onDeleteContactClicked(contact: Contact): void {
+    this.contactsService.softDelete(contact.id!).subscribe({
+      complete: () => {
+        console.log('removed contact:', JSON.stringify(contact));
+      }
+    });
   }
 
 
