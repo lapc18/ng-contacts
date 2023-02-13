@@ -1,0 +1,19 @@
+
+<div class="card contact-card" (click)="onCardClicked()">
+  <div class="contact-card__header">
+    <h4>{{ contact.firstName}} {{contact.lastName}}</h4>
+    <small *ngIf="contact.nickName">{{ contact.nickName }}</small>
+  </div>
+
+  <div class="contact-card__content">
+    <p><b>Phone:</b> {{ contact!.phoneNumbers }}</p>
+    <p><b>Address:</b> {{ contact.address || ''}}</p>
+    <p><b>E-mail:</b> {{ contact.emails || '' }}</p>
+    <p><b>Company:</b> {{ contact.company || '' }}</p>
+  </div>
+
+    <div class="contact-card__actions">
+      <button (click)="onEdit.emit(contact)" pButton type="button" icon="pi pi-pencil" class="p-button-info m-1"></button>
+      <button (click)="onDelete.emit(contact)" pButton type="button" icon="pi pi-trash" class="p-button-danger m-1"></button>
+    </div>
+</div>

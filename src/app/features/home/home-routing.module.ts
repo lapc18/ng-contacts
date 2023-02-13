@@ -9,6 +9,7 @@ const routes: Routes = [
     path: AppRoutes.DEFAULT,
     component: HomeComponent,
     children: [
+      { path: AppRoutes.DEFAULT, redirectTo: AppRoutes.LANDING, pathMatch: 'full' },
       { path: AppRoutes.LANDING, component: LandingComponent },
     ]
   }
