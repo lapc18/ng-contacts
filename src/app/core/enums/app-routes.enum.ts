@@ -8,4 +8,6 @@ export enum AppRoutes {
     SIGNUP = "signup",
     CONTACTS_BOARD = "contacts",
     BOARD = "board",
+    DETAIL = "detail",
+    EDIT = "edit",
 }

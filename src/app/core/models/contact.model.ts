@@ -2,6 +2,7 @@ import { Email } from "./email.model";
 import { PhoneNumber } from "./phone-number.model";
 
 export type Contact = {
+  id?: number,
   profile?: string,
   firstName: string,
   lastName: string,

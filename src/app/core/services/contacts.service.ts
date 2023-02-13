@@ -1,13 +1,43 @@
-import { HttpClient } from "@angular/common/http";
-import { Injectable } from "@angular/core";
-
+import { HttpClient } from '@angular/common/http';
+import { Injectable } from '@angular/core';
+import { Observable } from 'rxjs';
+import { environment } from 'src/environments/environment';
+import { IService } from '../interfaces/service.interface';
+import { Contact } from '../models/contact.model';
+import { Pagination } from '../models/pagination.model';
+import { Response } from '../models/response.model';
 
 @Injectable()
-export class ContactsService {
-
-  private _api:string = "";
+export class ContactsService implements IService<Contact> {
+  private _api: string = environment.api.contacts;
 
   constructor(private http: HttpClient) {}
 
+  findOne(id: string | number): Observable<Contact> {
+    throw new Error('Method not implemented.');
+  }
 
+  find(pageable: Pagination): Observable<Response<Contact>> {
+    const { page, take } = pageable;
+    const url = `${this._api}?page=${page}&size=${take}`;
+    return this.http.get<Response<Contact>>(url);
+  }
+
+  create(body: Contact): Observable<Contact> {
+    return this.http.post<Contact>(this._api, { ...body });
+  }
+
+  update(body: Contact): Observable<Contact> {
+    return this.http.put<Contact>(this._api, { ...body });
+  }
+
+  softDelete(id: number): Observable<boolean> {
+    const url = `${this._api}?id=${id}`;
+    return this.http.delete<boolean>(url);
+  }
+
+  hardDelete(id: string | number): Observable<boolean> {
+    const url = `${this._api}?id=${id}&softDelete=false`;
+    return this.http.delete<boolean>(url);
+  }
 }
