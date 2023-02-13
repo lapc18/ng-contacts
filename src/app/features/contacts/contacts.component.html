@@ -1,0 +1,9 @@
+<p-menubar [model]="menuItems">
+  <ng-template pTemplate="start">
+    <div class="pt-3"><p class="text-red d-inline-block">Ng</p><p class="text-black d-inline-block">Contacts</p></div>
+  </ng-template>
+  <ng-template pTemplate="end">
+      <button pButton pRipple class="p-button-danger" icon="pi pi-power-off"> </button>
+  </ng-template>
+</p-menubar>
+<router-outlet></router-outlet>

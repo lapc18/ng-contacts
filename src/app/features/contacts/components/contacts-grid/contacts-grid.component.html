@@ -1,1 +1,22 @@
-<p>contacts-grid works!</p>
+<p-dataView #dv [value]="contacts" [paginator]="true" [rows]="9" filterBy="firstName" layout="grid">
+  <ng-template pTemplate="header">
+    <div class="flex flex-column md:flex-row md:justify-content-between">
+      <span class="p-input-icon-left mb-2">
+        <i class="pi pi-search"></i>
+        <input type="search" pInputText placeholder="Search by Name" [(ngModel)]="searchInputValue"
+          (ngModelChange)="dv.filter(searchInputValue)">
+      </span>
+      <p-dataViewLayoutOptions></p-dataViewLayoutOptions>
+    </div>
+  </ng-template>
+  <ng-template let-contact pTemplate="listItem">
+    <div class="col-12">
+      <!-- TODO: add list item component -->
+    </div>
+  </ng-template>
+  <ng-template let-contact pTemplate="gridItem">
+    <div class="col-12 md:col-4">
+      <app-contact-card [contact]="contact"></app-contact-card>
+    </div>
+  </ng-template>
+</p-dataView>

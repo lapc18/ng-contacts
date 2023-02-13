@@ -4,6 +4,7 @@ import { AuthService } from './services/auth.service';
 import { HttpClientModule } from '@angular/common/http';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { SessionStorageService } from './services/session-storage.service';
+import { ContactsService } from './services/contacts.service';
 
 
 
@@ -23,6 +24,7 @@ import { SessionStorageService } from './services/session-storage.service';
   providers: [
     AuthService,
     SessionStorageService,
+    ContactsService,
   ]
 })
 export class CoreModule { }
