@@ -1,8 +1,9 @@
 export const environment = {
   production: true,
   api: {
-    auth: "http://localhost:9903/api/auth",
-    users: "http://localhost:9903/api/users",
-    contacts: "http://localhost:9903/api/contacts"
+    host: 'http://localhost:9903',
+    auth: "api/auth",
+    users: "api/users",
+    contacts: "api/contacts"
   }
 };
