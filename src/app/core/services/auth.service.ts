@@ -9,29 +9,38 @@ import {
 } from 'src/app/core/utils/strings.util';
 import { SessionStorageService } from './session-storage.service';
 import { Constants } from '../enums/constant-keys.enum';
+import { User } from '../models/user.model';
 
 @Injectable()
 export class AuthService {
   private _api: string = environment.api.auth;
 
-  private curentUser$: BehaviorSubject<{ username?: string; email?: string }> =
-    new BehaviorSubject<{ username?: string; email?: string }>({});
+  private curentUser$: BehaviorSubject<{ username?: string; email?: string, id?:number }> =
+    new BehaviorSubject<{ username?: string; email?: string, id?:number }>({});
 
   private token$: BehaviorSubject<string> =
     new BehaviorSubject<string>('');
 
   public get currentUser() {
-    return this.curentUser$.getValue();
+    let value = this.curentUser$.getValue();
+    if(!value || !value.id) {
+      value = this.sessionStorageService.get(Constants.NG_CURRENT_USR) || {};
+      console.log('value', value);
+    }
+    return value;
   }
 
   public set currentUser({
     username,
     email,
+    id
   }: {
     username?: string;
     email?: string;
+    id?:number
   }) {
-    this.curentUser$.next({ username, email });
+    this.curentUser$.next({ username, email, id });
+    this.sessionStorageService.save({key: Constants.NG_CURRENT_USR, data: { username, email, id }});
   }
 
   public get token():string {
@@ -47,14 +56,14 @@ export class AuthService {
 
   }
 
-  public login(details: LoginType): Observable<boolean> {
+  public login(details: LoginType): Observable<User> {
     const url: string = [this._api, 'login'].join('/');
-    return this.http.post<boolean>(url, details);
+    return this.http.post<User>(url, details);
   }
 
-  public register(details: LoginType): Observable<boolean> {
+  public register(details: LoginType): Observable<User> {
     const url: string = [this._api, 'register'].join('/');
-    return this.http.post<boolean>(url, setFullLoginBody(details));
+    return this.http.post<User>(url, setFullLoginBody(details));
   }
 }
 

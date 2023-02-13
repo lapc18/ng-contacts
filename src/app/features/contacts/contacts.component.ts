@@ -48,10 +48,14 @@ export class ContactsComponent {
   }
 
   onAddContactMenuClicked(): void {
-    this.dialogService.open(AddContactFormComponent, {
+    const ref = this.dialogService.open(AddContactFormComponent, {
       width: "80%",
       closable: true,
       closeOnEscape: true
+    });
+
+    ref.onClose.subscribe({
+      next: () => location.reload
     });
   }
 

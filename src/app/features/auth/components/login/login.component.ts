@@ -41,7 +41,8 @@ export class LoginComponent implements OnInit {
     this.hasInvalidCreds = false;
     this.authService.login({ ...this.signinForm.value }).subscribe((res) => {
       this.hasInvalidCreds = !res;
-      if(res) this.router.navigate(['/home/contacts']);
+      this.authService.currentUser = { ...res };
+      if(res) this.router.navigate(['/contacts/board']);
     });
   }
 

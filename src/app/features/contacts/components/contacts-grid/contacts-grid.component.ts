@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { SelectItem } from 'primeng/api';
 import { Contact } from 'src/app/core/models/contact.model';
+import { Pagination } from 'src/app/core/models/pagination.model';
 import { ContactsService } from 'src/app/core/services/contacts.service';
 
 @Component({
@@ -11,40 +11,27 @@ import { ContactsService } from 'src/app/core/services/contacts.service';
 export class ContactsGridComponent implements OnInit {
 
 
-  public contacts: Array<Contact> = [
-    { id: 0, firstName: "ztest", lastName: "contact", nickName: "test nickname", address: "some street", company: "devlegnd", website: "lapc.com"},
-    { id: 1, firstName: "test", lastName: "contact"},
-    { id: 3, firstName: "test", lastName: "contact"},
-    { id: 44, firstName: "atest x", lastName: "contact"},
-    { id: 24, firstName: "test", lastName: "contact"},
-    { id: 425, firstName: "test", lastName: "contact"},
-    { id: 764, firstName: "test z", lastName: "contact"},
-    { id: 46764, firstName: "test", lastName: "contact"},
-    { id:764764, firstName: "test", lastName: "contact"},
-    { id: 35635, firstName: "test", lastName: "contact"},
-    { id: 2, firstName: "ztest a", lastName: "contact"},
-  ];
+  public contacts: Array<Contact> = [];
 
+  public searchInputValue: string = "";
 
-  sortOptions: SelectItem[] = [
-    {label: 'A-Z', value: '!name'},
-    {label: 'Z-A', value: 'name'}
-  ];
+  public pagination:Pagination = { page: 0, take: 10 };
 
-  sortOrder!: number;
-
-  sortField!: string;
-
-  sortKey:any = '';
-
-  searchInputValue: string = "";
 
   constructor(
     private contactsService: ContactsService
   ){}
 
   ngOnInit(): void {
+    this.loadContacts();
+  }
 
+  private loadContacts(): void {
+    this.contactsService.find({...this.pagination}).subscribe({
+      next: (res) => {
+        this.contacts = [...res.body];
+      }
+    });
   }
 
 

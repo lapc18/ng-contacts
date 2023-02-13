@@ -1,4 +1,4 @@
-<p-dataView #dv [value]="contacts" [paginator]="true" [rows]="9" filterBy="firstName" layout="grid">
+<p-dataView #dv [value]="contacts" [paginator]="true" [rows]="pagination.take!" [first]="pagination.take!"  filterBy="firstName" layout="grid">
   <ng-template pTemplate="header">
     <div class="flex flex-column md:flex-row md:justify-content-between">
       <span class="p-input-icon-left mb-2">

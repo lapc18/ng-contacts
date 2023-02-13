@@ -7,8 +7,8 @@ export class SessionStorageService {
       sessionStorage.clear();
   }
 
-  save(user: any, key:string): void {
-      sessionStorage.setItem(key, JSON.stringify(user));
+  save({ data, key }:{ data: any, key:string}): void {
+      sessionStorage.setItem(key, JSON.stringify(data));
   }
 
   get<T>(key: string): T | undefined {
