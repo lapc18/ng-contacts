@@ -2,7 +2,7 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FooterComponent } from './components/footer/footer.component';
 import { NavbarComponent } from './components/navbar/navbar.component';
-import { DynamicDialogModule } from 'primeng/dynamicdialog';
+import { DialogService, DynamicDialogModule } from 'primeng/dynamicdialog';
 import { ToastModule } from 'primeng/toast';
 import { TableModule } from 'primeng/table';
 import { ButtonModule } from 'primeng/button';
@@ -42,5 +42,6 @@ import { CardModule } from 'primeng/card';
     InputTextModule,
     CardModule,
   ],
+  providers: [DialogService]
 })
 export class SharedModule {}

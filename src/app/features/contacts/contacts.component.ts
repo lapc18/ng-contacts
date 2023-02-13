@@ -1,10 +1,12 @@
 import { Component } from "@angular/core";
 import { ActivatedRoute, Router } from "@angular/router";
 import { MenuItem } from "primeng/api";
+import { DialogService } from "primeng/dynamicdialog";
 import { AppRoutes } from "src/app/core/enums/app-routes.enum";
 import { Contact } from "src/app/core/models/contact.model";
 import { User } from "src/app/core/models/user.model";
 import { SessionStorageService } from "src/app/core/services/session-storage.service";
+import { AddContactFormComponent } from "./components/add-contact-form/add-contact-form.component";
 import { MENU_BAR_ITEMS } from "./models/menu-bar-items.model";
 
 
@@ -25,6 +27,7 @@ export class ContactsComponent {
     private sessionStorageMng: SessionStorageService,
     private router: Router,
     private activeRoute: ActivatedRoute,
+    public dialogService: DialogService
   ) {
 
 
@@ -45,7 +48,11 @@ export class ContactsComponent {
   }
 
   onAddContactMenuClicked(): void {
-    //TODO: open dialog menu here
+    this.dialogService.open(AddContactFormComponent, {
+      width: "80%",
+      closable: true,
+      closeOnEscape: true
+    });
   }
 
   onAllContactsMenuClicked(): void {
