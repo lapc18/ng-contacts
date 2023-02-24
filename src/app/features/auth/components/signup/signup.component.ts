@@ -2,7 +2,6 @@ import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { AuthService } from 'src/app/core/services/auth.service';
-import { SessionStorageService } from 'src/app/core/services/session-storage.service';
 
 @Component({
   selector: 'app-signup',
@@ -15,7 +14,6 @@ export class SignupComponent implements OnInit {
   public exitsErrorOnResponse: boolean = false;
 
   constructor(
-    private sessionStorageMng: SessionStorageService,
     private authService: AuthService,
     private router: Router
   ) { }
