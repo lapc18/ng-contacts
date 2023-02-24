@@ -4,7 +4,7 @@ import { Router } from '@angular/router';
 import { DynamicDialogConfig, DynamicDialogRef } from 'primeng/dynamicdialog';
 import { Contact } from 'src/app/core/models/contact.model';
 import { ContactsService } from 'src/app/core/services/contacts.service';
-import { SessionStorageService } from 'src/app/core/services/session-storage.service';
+import { StorageService } from 'src/app/core/services/storage.service';
 
 @Component({
   selector: 'app-add-contact-form',

@@ -7,63 +7,54 @@ import {
   getUsernameFromEmail,
   validateEmail,
 } from 'src/app/core/utils/strings.util';
-import { SessionStorageService } from './session-storage.service';
+import { StorageService } from './storage.service';
 import { Constants } from '../enums/constant-keys.enum';
-import { User } from '../models/user.model';
+import { AuthResponse } from '../models/auth-response.model';
 
 @Injectable()
 export class AuthService {
   private _api: string = environment.api.auth;
 
-  private curentUser$: BehaviorSubject<{ username?: string; email?: string, id?:number }> =
-    new BehaviorSubject<{ username?: string; email?: string, id?:number }>({});
+  private curentUser$: BehaviorSubject<Partial<AuthResponse>> =
+    new BehaviorSubject<Partial<AuthResponse>>({});
 
   private token$: BehaviorSubject<string> =
     new BehaviorSubject<string>('');
 
   public get currentUser() {
-    let value = this.curentUser$.getValue();
-    if(!value || !value.id) {
-      value = this.sessionStorageService.get(Constants.NG_CURRENT_USR) || {};
-      console.log('value', value);
-    }
-    return value;
+    let value:any = this.curentUser$.getValue();
+    if(!value || !value.id) value = this.sessionStorageService.get<AuthResponse>(Constants.NG_CURRENT_USR);
+    return { ...value };
   }
 
-  public set currentUser({
-    username,
-    email,
-    id
-  }: {
-    username?: string;
-    email?: string;
-    id?:number
-  }) {
-    this.curentUser$.next({ username, email, id });
-    this.sessionStorageService.save({key: Constants.NG_CURRENT_USR, data: { username, email, id }});
+  public set currentUser(user: AuthResponse) {
+    this.curentUser$.next({ ...user });
+    this.sessionStorageService.save({key: Constants.NG_CURRENT_USR, data: { ...user }});
   }
 
   public get token():string {
-    return this.token$.getValue();
+    let value = this.sessionStorageService.get<string>(Constants.NG_TOKEN);
+    return value || this.token$.getValue();
   }
 
-  public set setToken(token:string) {
+  public set token(token:string) {
+    this.sessionStorageService.save({ key: Constants.NG_TOKEN, data: token});
     this.token$.next(token);
   }
 
-  constructor(private http: HttpClient, private sessionStorageService: SessionStorageService) {
+  constructor(private http: HttpClient, private sessionStorageService: StorageService) {
     const token = this.sessionStorageService.get<string>(Constants.NG_TOKEN);
-
+    this.token = token || '';
   }
 
-  public login(details: LoginType): Observable<User> {
+  public login(details: LoginType): Observable<AuthResponse> {
     const url: string = [this._api, 'login'].join('/');
-    return this.http.post<User>(url, details);
+    return this.http.post<AuthResponse>(url, details);
   }
 
-  public register(details: LoginType): Observable<User> {
+  public register(details: LoginType): Observable<AuthResponse> {
     const url: string = [this._api, 'register'].join('/');
-    return this.http.post<User>(url, setFullLoginBody(details));
+    return this.http.post<AuthResponse>(url, setFullLoginBody(details));
   }
 }
 

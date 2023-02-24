@@ -1,11 +1,12 @@
 import { Component } from "@angular/core";
-import { ActivatedRoute, Router } from "@angular/router";
+import { Router } from "@angular/router";
 import { MenuItem } from "primeng/api";
 import { DialogService } from "primeng/dynamicdialog";
 import { AppRoutes } from "src/app/core/enums/app-routes.enum";
 import { Contact } from "src/app/core/models/contact.model";
 import { User } from "src/app/core/models/user.model";
-import { SessionStorageService } from "src/app/core/services/session-storage.service";
+import { AuthService } from "src/app/core/services/auth.service";
+import { StorageService } from "src/app/core/services/storage.service";
 import { AddContactFormComponent } from "./components/add-contact-form/add-contact-form.component";
 import { MENU_BAR_ITEMS } from "./models/menu-bar-items.model";
 
@@ -24,10 +25,10 @@ export class ContactsComponent {
 
 
   constructor(
-    private sessionStorageMng: SessionStorageService,
+    private storageMng: StorageService,
     private router: Router,
-    private activeRoute: ActivatedRoute,
-    public dialogService: DialogService
+    public dialogService: DialogService,
+    private authService: AuthService,
   ) {
 
 
@@ -43,7 +44,7 @@ export class ContactsComponent {
   }
 
   signOut(): void {
-    this.sessionStorageMng.clear();
+    this.storageMng.clear();
     this.router.navigate(['']);
   }
 

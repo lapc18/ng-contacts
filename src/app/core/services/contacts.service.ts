@@ -12,6 +12,10 @@ import { AuthService } from './auth.service';
 export class ContactsService implements IService<Contact> {
   private _api: string = environment.api.contacts;
 
+  private get currentUser() {
+    return this.authService.currentUser;
+  }
+
   constructor(private http: HttpClient, private authService: AuthService) {}
 
   findOne(id: string | number): Observable<Contact> {
