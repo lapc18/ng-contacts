@@ -28,19 +28,19 @@ export class AddContactFormComponent {
       firstName: new FormControl('', [Validators.required]),
       lastName: new FormControl(''),
       nickName: new FormControl(''),
-      email: new FormControl('', [Validators.email]),
-      phoneNumber: new FormControl(''),
+      emails: new FormControl('', [Validators.email]),
+      phoneNumbers: new FormControl('', Validators.minLength(10)),
       address: new FormControl(''),
-      company: new FormControl(''),
+      website: new FormControl(''),
     });
   }
 
   onSaveContact(): void {
     this.contactsService.create(this.contactForm.value).subscribe({
       next: (res) => {
-        console.log(res);
         this.ref.close({ contact: this.contactForm.value });
-      }
+      },
+      error: (err) => console.log('error add', err)
     });
 
 

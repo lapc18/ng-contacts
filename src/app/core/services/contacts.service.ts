@@ -6,6 +6,7 @@ import { IService } from '../interfaces/service.interface';
 import { Contact } from '../models/contact.model';
 import { Pagination } from '../models/pagination.model';
 import { Response } from '../models/response.model';
+import { AppStateService } from './app-state.service';
 import { AuthService } from './auth.service';
 
 @Injectable()
@@ -13,10 +14,10 @@ export class ContactsService implements IService<Contact> {
   private _api: string = environment.api.contacts;
 
   private get currentUser() {
-    return this.authService.currentUser;
+    return this.appState.currentUser;
   }
 
-  constructor(private http: HttpClient, private authService: AuthService) {}
+  constructor(private http: HttpClient, private appState: AppStateService) {}
 
   findOne(id: string | number): Observable<Contact> {
     throw new Error('Method not implemented.');
@@ -24,7 +25,7 @@ export class ContactsService implements IService<Contact> {
 
   find(pageable: Pagination): Observable<Response<Contact>> {
     const { page, take } = pageable;
-    const url = `${this._api}?userId=${this.authService.currentUser.id!}&page=${page}&size=${take}`;
+    const url = `${this._api}?userId=${this.appState.currentUser.id!}&page=${page}&size=${take}`;
     return this.http.get<Response<Contact>>(url);
   }
 

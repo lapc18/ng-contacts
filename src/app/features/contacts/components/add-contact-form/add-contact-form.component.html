@@ -19,20 +19,38 @@
                       name="lastName" id="lastName">
               </div>
               <div class="form-group">
-                  <label for="phoneNumber">Phonenumber</label>
-                  <input formControlName="phoneNumber" placeholder="1234567890" class="form-control" type="tel"
-                      required name="phoneNumber" id="phoneNumber">
+                  <label for="phoneNumbers">Phonenumber</label>
+                  <input formControlName="phoneNumbers" placeholder="1234567890" class="form-control" type="tel"
+                      required name="phoneNumbers" id="phoneNumbers">
               </div>
               <div class="form-group">
-                  <label for="name">E-mail</label>
-                  <input formControlName="email" placeholder="your@email.com" class="form-control" type="email"
-                      name="email" id="email">
+                  <label for="emails">E-mail</label>
+                  <input formControlName="emails" placeholder="your@email.com" class="form-control" type="email"
+                      name="emails" id="emails">
               </div>
               <div class="form-group">
                   <label for="name">Nickname</label>
                   <input formControlName="nickName" placeholder="Some knickname" class="form-control" type="text"
                       name="name" id="name">
               </div>
+
+              <div class="pt-4">
+                <div class="flex justify-content-end">
+                  <button pButton icon="pi pi-plus" class="p-button-sm p-button-info"></button>
+                </div>
+                <div class="form-group">
+                  <label for="website">Website</label>
+                  <input formControlName="website" placeholder="Some website..." class="form-control" type="text"
+                      name="website" id="website">
+                </div>
+                <div class="form-group">
+                  <label for="email">Address</label>
+                  <textarea formControlName="address" placeholder="Some address here..." class="form-control" type="text"
+                      name="address" id="address"> </textarea>
+                </div>
+              </div>
+
+
               <button (click)="onSaveContact()" class="btn btn-outline-primary float-right col-12 mt-3">Save</button>
           </form>
       </div>
