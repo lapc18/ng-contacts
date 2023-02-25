@@ -9,6 +9,9 @@ import { ProfileModule } from './features/profile/profile.module';
 import { CoreModule } from './core/core.module';
 import { SharedModule } from './shared/shared.module';
 import { MessageService } from 'primeng/api';
+import { JwtModule } from '@auth0/angular-jwt';
+import { environment } from 'src/environments/environment';
+import { Constants } from './core/enums/constant-keys.enum';
 
 @NgModule({
   declarations: [
@@ -20,6 +23,12 @@ import { MessageService } from 'primeng/api';
     AppRoutingModule,
     CoreModule,
     SharedModule,
+    JwtModule.forRoot({
+      config: {
+        allowedDomains: [environment.api.domain],
+        tokenGetter: () => localStorage.getItem(Constants.NG_TOKEN)
+      }
+    }),
     HomeModule,
     AuthModule,
     ProfileModule

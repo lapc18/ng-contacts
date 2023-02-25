@@ -5,7 +5,7 @@ import { DialogService } from "primeng/dynamicdialog";
 import { AppRoutes } from "src/app/core/enums/app-routes.enum";
 import { Contact } from "src/app/core/models/contact.model";
 import { User } from "src/app/core/models/user.model";
-import { AuthService } from "src/app/core/services/auth.service";
+import { AppStateService } from "src/app/core/services/app-state.service";
 import { StorageService } from "src/app/core/services/storage.service";
 import { AddContactFormComponent } from "./components/add-contact-form/add-contact-form.component";
 import { MENU_BAR_ITEMS } from "./models/menu-bar-items.model";
@@ -28,7 +28,7 @@ export class ContactsComponent {
     private storageMng: StorageService,
     private router: Router,
     public dialogService: DialogService,
-    private authService: AuthService,
+    private appState: AppStateService,
   ) {
 
 
@@ -45,7 +45,7 @@ export class ContactsComponent {
 
   signOut(): void {
     this.storageMng.clear();
-    this.router.navigate(['']);
+    this.router.navigate([AppRoutes.DEFAULT]);
   }
 
   onAddContactMenuClicked(): void {
@@ -56,7 +56,7 @@ export class ContactsComponent {
     });
 
     ref.onClose.subscribe({
-      next: () => location.reload
+      next: (contact) => this.appState.canRefresh$.next(true)
     });
   }
 

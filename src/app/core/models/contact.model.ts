@@ -13,6 +13,6 @@ export type Contact = {
   notes?: string,
   isCompany?:string,
   company?: string,
-  emails?: Array<Email>,
-  phoneNumbers?: Array<PhoneNumber>,
+  emails?: string,
+  phoneNumbers?: string,
 };

@@ -3,6 +3,7 @@ import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { MessageService } from 'primeng/api';
 import { AuthResponse } from 'src/app/core/models/auth-response.model';
+import { AppStateService } from 'src/app/core/services/app-state.service';
 import { AuthService } from 'src/app/core/services/auth.service';
 
 @Component({
@@ -28,6 +29,7 @@ export class LoginComponent implements OnInit {
 
   constructor(
     private router: Router,
+    private appState: AppStateService,
     private authService: AuthService,
     private messageService: MessageService,
   ){}
@@ -47,8 +49,8 @@ export class LoginComponent implements OnInit {
     this.hasBadResponse = false;
     this.authService.login({ ...this.signinForm.value }).subscribe({
       next: (res:AuthResponse) => {
-        this.authService.currentUser = { ...res };
-        this.authService.token = res.token;
+        this.appState.currentUser = { ...res };
+        this.appState.token = res.token;
         this.isLoading = false;
         this.router.navigate(['/contacts/board']);
       },

@@ -1,6 +1,7 @@
 export const environment = {
   production: true,
   api: {
+    domain: 'localhost:9903',
     host: 'http://localhost:9903',
     auth: "api/auth",
     users: "api/users",

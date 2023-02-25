@@ -19,12 +19,6 @@ export class ContactCardComponent {
 
   ) {}
 
-  onCardClicked(): void {
-    this.router.navigate([AppRoutes.DETAIL, this.contact.id], {
-      relativeTo: this.route,
-    });
-  }
-
   onEditClicked(): void {
     this.onEdit.emit(this.contact);
     this.router.navigate([AppRoutes.EDIT, this.contact.id], {
