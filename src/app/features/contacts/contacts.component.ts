@@ -45,7 +45,8 @@ export class ContactsComponent {
 
   signOut(): void {
     this.storageMng.clear();
-    this.router.navigate([AppRoutes.DEFAULT]);
+    this.appState.clear();
+    this.gotoIndex();
   }
 
   onAddContactMenuClicked(): void {

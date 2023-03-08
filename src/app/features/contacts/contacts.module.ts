@@ -10,6 +10,7 @@ import { ContactDetailComponent } from './components/contact-detail/contact-deta
 import { ContactsComponent } from './contacts.component';
 import { CoreModule } from 'src/app/core/core.module';
 import { SharedModule } from 'src/app/shared/shared.module';
+import { DynamicDialogConfig, DynamicDialogRef } from 'primeng/dynamicdialog';
 
 
 @NgModule({
@@ -26,6 +27,7 @@ import { SharedModule } from 'src/app/shared/shared.module';
     ContactsRoutingModule,
     CoreModule,
     SharedModule,
-  ]
+  ],
+  providers: [ DynamicDialogRef, DynamicDialogConfig ]
 })
 export class ContactsModule { }
