@@ -24,15 +24,27 @@ export class AddContactFormComponent {
   ) { }
 
   ngOnInit(): void {
+    this.loadForm();
+  }
+
+  private loadForm(): void {
+    console.log('data', this.config)
+    const { data } = this.config;
+    const { contact } = data || {};
+
     this.contactForm = new FormGroup({
-      firstName: new FormControl('', [Validators.required]),
-      lastName: new FormControl(''),
-      nickName: new FormControl(''),
-      emails: new FormControl('', [Validators.email]),
-      phoneNumbers: new FormControl('', Validators.minLength(10)),
-      address: new FormControl(''),
-      website: new FormControl(''),
+      firstName: new FormControl(contact?.firstName || '', [Validators.required]),
+      lastName: new FormControl(contact?.lastName || ''),
+      nickName: new FormControl(contact?.nickName || ''),
+      emails: new FormControl(contact?.emails || '', [Validators.email]),
+      phoneNumbers: new FormControl(contact?.phoneNumbers || '', Validators.minLength(10)),
+      address: new FormControl(contact?.address || ''),
+      website: new FormControl(contact?.website || ''),
     });
+
+    if(contact && contact?.emails) {
+      this.contactForm.get('emails')?.disable();
+    }
   }
 
   onSaveContact(): void {
@@ -42,8 +54,15 @@ export class AddContactFormComponent {
       },
       error: (err) => console.log('error add', err)
     });
+  }
 
-
+  onEditContact(): void {
+    this.contactsService.update(this.contactForm.value).subscribe({
+      next: (res) => {
+        this.ref.close({ contact: this.contactForm.value });
+      },
+      error: (err) => console.log('error editing contact', err)
+    });
   }
 
 }

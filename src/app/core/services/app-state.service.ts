@@ -55,4 +55,10 @@ export class AppStateService {
     this.token = token || '';
   }
 
+  clear(): void {
+    this.token = '';
+    this.contacts = [];
+    this.curentUser$.next({});
+  }
+
 }

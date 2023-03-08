@@ -1,7 +1,8 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
-import { ActivatedRoute, Router } from '@angular/router';
-import { AppRoutes } from 'src/app/core/enums/app-routes.enum';
+import { DialogService } from 'primeng/dynamicdialog';
 import { Contact } from 'src/app/core/models/contact.model';
+import { AppStateService } from 'src/app/core/services/app-state.service';
+import { AddContactFormComponent } from '../add-contact-form/add-contact-form.component';
 
 @Component({
   selector: 'app-contact-list-item',
@@ -14,21 +15,22 @@ export class ContactListItemComponent {
   @Output() onEdit: EventEmitter<Contact> = new EventEmitter();
 
   constructor(
-    private router: Router,
-    private route: ActivatedRoute,
-
+    public dialogService: DialogService,
+    private appState: AppStateService,
   ) {}
 
-  onCardClicked(): void {
-    this.router.navigate([AppRoutes.DETAIL, this.contact.id], {
-      relativeTo: this.route,
-    });
-  }
 
   onEditClicked(): void {
     this.onEdit.emit(this.contact);
-    this.router.navigate([AppRoutes.EDIT, this.contact.id], {
-      relativeTo: this.route,
+    const ref = this.dialogService.open(AddContactFormComponent, {
+      width: "80%",
+      closable: true,
+      closeOnEscape: true,
+      data: { contact: { ...this.contact }}
+    });
+
+    ref.onClose.subscribe({
+      next: (contact) => this.appState.canRefresh$.next(true)
     });
   }
 }
